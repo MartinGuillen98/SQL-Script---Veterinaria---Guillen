@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS `veterinaria`.`empleados` (
   `fecha_contratacion` DATE NULL DEFAULT NULL,
   PRIMARY KEY (`id_empleado`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -46,6 +47,7 @@ CREATE TABLE IF NOT EXISTS `veterinaria`.`historial_medico` (
   `fecha_diagnostico` DATE NULL DEFAULT NULL,
   PRIMARY KEY (`id_historial`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -58,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `veterinaria`.`mascotas` (
   `nombre_mascota` VARCHAR(45) NULL DEFAULT NULL,
   `tipo_mascota` VARCHAR(45) NULL DEFAULT NULL,
   `fecha_nacimiento` DATE NULL DEFAULT NULL,
-  `peso_mascota` DECIMAL(20,0) NULL DEFAULT NULL,
+  `peso_mascota_kg` DECIMAL(10,2) NULL DEFAULT NULL,
   `id_historial` INT NOT NULL,
   PRIMARY KEY (`id_mascota`),
   INDEX `fk_mascotas_historial_idx` (`id_historial` ASC) VISIBLE,
@@ -66,6 +68,7 @@ CREATE TABLE IF NOT EXISTS `veterinaria`.`mascotas` (
     FOREIGN KEY (`id_historial`)
     REFERENCES `veterinaria`.`historial_medico` (`id_historial`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -88,6 +91,7 @@ CREATE TABLE IF NOT EXISTS `veterinaria`.`citas` (
     FOREIGN KEY (`id_mascota`)
     REFERENCES `veterinaria`.`mascotas` (`id_mascota`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -102,6 +106,7 @@ CREATE TABLE IF NOT EXISTS `veterinaria`.`clientes` (
   `telefono` VARCHAR(15) NULL DEFAULT NULL,
   PRIMARY KEY (`id_cliente`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -123,6 +128,7 @@ CREATE TABLE IF NOT EXISTS `veterinaria`.`clientes_mascotas` (
     FOREIGN KEY (`id_mascota`)
     REFERENCES `veterinaria`.`mascotas` (`id_mascota`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -132,11 +138,13 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `veterinaria`.`facturas` (
   `id_factura` INT NOT NULL AUTO_INCREMENT,
-  `monto_total` DECIMAL(10,2) NULL DEFAULT NULL,
   `fecha_factura` DATE NULL DEFAULT NULL,
+  `estado_factura` VARCHAR(45) NULL DEFAULT NULL,
+  `numero_factura` VARCHAR(45) NULL DEFAULT NULL,
+  `fecha_vencimiento` DATE NULL DEFAULT NULL,
   PRIMARY KEY (`id_factura`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 2
+AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -147,9 +155,11 @@ COLLATE = utf8mb4_0900_ai_ci;
 CREATE TABLE IF NOT EXISTS `veterinaria`.`items` (
   `id_item` INT NOT NULL AUTO_INCREMENT,
   `tipo_item` VARCHAR(45) NULL DEFAULT NULL,
-  `descripcion_item` VARCHAR(45) NULL DEFAULT NULL,
+  `droga_item` VARCHAR(45) NULL DEFAULT NULL,
+  `marca_item` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`id_item`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -162,6 +172,7 @@ CREATE TABLE IF NOT EXISTS `veterinaria`.`metodos_de_pago` (
   `descripcion_metodo` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`id_metodo_pago`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 5
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -174,6 +185,7 @@ CREATE TABLE IF NOT EXISTS `veterinaria`.`proveedores` (
   `nombre_proveedor` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`id_proveedor`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -198,6 +210,7 @@ CREATE TABLE IF NOT EXISTS `veterinaria`.`proveedores_items` (
     FOREIGN KEY (`id_proveedor`)
     REFERENCES `veterinaria`.`proveedores` (`id_proveedor`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -207,12 +220,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `veterinaria`.`ventas` (
   `id_venta` INT NOT NULL AUTO_INCREMENT,
-  `fecha_venta` DATE NULL DEFAULT NULL,
-  `total_venta` DECIMAL(10,2) NULL DEFAULT NULL,
   `id_factura` INT NULL DEFAULT NULL,
   `id_empleado` INT NULL DEFAULT NULL,
   `id_cliente` INT NULL DEFAULT NULL,
-  `id_metodo_pago` INT NULL DEFAULT NULL,
   PRIMARY KEY (`id_venta`),
   INDEX `ventas_facturas_idx` (`id_factura` ASC) VISIBLE,
   INDEX `fk_ventas_empleados_idx` (`id_empleado` ASC) VISIBLE,
@@ -227,7 +237,7 @@ CREATE TABLE IF NOT EXISTS `veterinaria`.`ventas` (
     FOREIGN KEY (`id_factura`)
     REFERENCES `veterinaria`.`facturas` (`id_factura`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 2
+AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -241,6 +251,7 @@ CREATE TABLE IF NOT EXISTS `veterinaria`.`ventas_items` (
   `id_item` INT NULL DEFAULT NULL,
   `cantidad` INT NULL DEFAULT NULL,
   `precio_unitario` DECIMAL(10,2) NULL DEFAULT NULL,
+  `monto_total` DECIMAL(10,2) NULL DEFAULT NULL,
   PRIMARY KEY (`id_venta_item`),
   INDEX `fk_ventasitem_ventas_idx` (`id_venta` ASC) VISIBLE,
   INDEX `fk_ventasitem_item_idx` (`id_item` ASC) VISIBLE,
@@ -251,6 +262,7 @@ CREATE TABLE IF NOT EXISTS `veterinaria`.`ventas_items` (
     FOREIGN KEY (`id_venta`)
     REFERENCES `veterinaria`.`ventas` (`id_venta`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 5
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -272,6 +284,7 @@ CREATE TABLE IF NOT EXISTS `veterinaria`.`ventas_metodosdepago` (
     FOREIGN KEY (`id_venta`)
     REFERENCES `veterinaria`.`ventas` (`id_venta`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -279,3 +292,4 @@ COLLATE = utf8mb4_0900_ai_ci;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
