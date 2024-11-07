@@ -1,0 +1,24 @@
+En este apartado se adjunta el código SQL utilizado para crear las vistas en la base de datos:
+
+
+VENTAS POR MES:
+
+CREATE VIEW ventas_por_mes AS
+SELECT 
+     DATE_FORMAT (f.fecha_factura, '%M') AS mes_venta,
+    SUM(vi.cantidad * vi.precio_unitario) AS total_ventas
+FROM ventas v
+JOIN ventas_items vi ON v.id_venta = vi.id_venta
+JOIN facturas f ON v.id_factura = f.id_factura
+GROUP BY DATE_FORMAT(f.fecha_factura, '%M');
+
+VENTAS POR CLIENTE:
+
+CREATE VIEW ventas_por_cliente AS
+SELECT 
+SUM(vi.precio_unitario * vi.cantidad) AS total_venta,
+c.nombre_cliente AS nombre_cliente
+FROM ventas v
+JOIN ventas_items vi ON v.id_venta = vi.id_venta
+JOIN clientes c ON v.id_cliente = c.id_cliente
+GROUP BY c.nombre_cliente;
