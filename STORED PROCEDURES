@@ -1,6 +1,6 @@
 En este apartado se adjunta el código SQL utilizado para crear los Stored Procedures en la base de datos:
 
-**ACTUALIZAR COSTO UNITARIO ITEM:**
+ACTUALIZAR COSTO UNITARIO ITEM:
 
 DELIMITER //
 CREATE PROCEDURE actualizar_costo_unitario_item(IN cu_id_item INT, IN cu_costounitario_nuevo DECIMAL(10,2))
