@@ -1,0 +1,46 @@
+En este apartado se adjunta el código SQL utilizado para crear los triggers en la base de datos:
+
+VALIDAR STOCK:
+
+DELIMITER //
+
+CREATE TRIGGER validar_stock
+BEFORE INSERT ON ventas_items
+FOR EACH ROW
+BEGIN
+    DECLARE stock_actual INT;
+    
+    -- Obtener el stock actual del ítem
+    SELECT cantidad_disponible INTO stock_actual 
+    FROM proveedores_items 
+    WHERE id_item = NEW.id_item;
+    
+    -- Validar que haya stock suficiente
+    IF stock_actual < NEW.cantidad THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Stock insuficiente para el ítem seleccionado';
+    END IF;
+END//
+
+DELIMITER ;
+
+
+ACTUALIZAR STOCK:
+
+DELIMITER //
+
+CREATE TRIGGER actualizar_stock_despues_venta
+AFTER INSERT ON ventas_items
+FOR EACH ROW
+BEGIN
+    -- Actualizar la cantidad disponible en la tabla proveedores_items
+    UPDATE proveedores_items 
+    SET cantidad_disponible = cantidad_disponible - NEW.cantidad
+    WHERE id_item = NEW.id_item;
+    
+    -- Validar que el stock no sea negativo
+    IF (SELECT cantidad_disponible FROM proveedores_items WHERE id_item = NEW.id_item) < 0 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El stock no puede ser negativo';
+    END IF;
+END //
+
+DELIMITER ;
