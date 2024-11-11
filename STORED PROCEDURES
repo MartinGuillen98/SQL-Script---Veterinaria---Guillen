@@ -1,0 +1,45 @@
+En este apartado se adjunta el código SQL utilizado para crear los Stored Procedures en la base de datos:
+
+ACTUALIZAR COSTO UNITARIO ITEM:
+
+DELIMITER //
+CREATE PROCEDURE actualizar_costo_unitario_item(IN cu_id_item INT, IN cu_costounitario_nuevo DECIMAL(10,2))
+BEGIN
+    UPDATE proveedores_items
+    SET costo_unitario = cu_costounitario_nuevo
+    WHERE id_item = cu_id_item;
+END //
+DELIMITER ;
+
+INSERTAR CLIENTE:
+
+DELIMITER //
+CREATE PROCEDURE insertar_cliente(
+    IN p_nombre_cliente VARCHAR(45), 
+    IN p_direccion_cliente VARCHAR(45), 
+    IN p_telefono_cliente VARCHAR(15)
+)
+BEGIN
+    INSERT INTO clientes (nombre_cliente, direccion, telefono)
+    VALUES (p_nombre_cliente, p_direccion_cliente, p_telefono_cliente);
+END //
+DELIMITER ;
+
+ACTUALIZAR CLIENTE:
+
+DELIMITER //
+CREATE PROCEDURE actualizar_cliente(
+    IN p_id_cliente INT, 
+    IN p_nombre_cliente VARCHAR(45), 
+    IN p_direccion_cliente VARCHAR(45), 
+    IN p_telefono_cliente VARCHAR(15)
+)
+BEGIN
+    UPDATE clientes
+    SET nombre_cliente = p_nombre_cliente, 
+        direccion = p_direccion_cliente, 
+        telefono = p_telefono_cliente
+    WHERE id_cliente = p_id_cliente;
+END //
+DELIMITER ;
+
