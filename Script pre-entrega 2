@@ -1,0 +1,120 @@
+-- CONSIGNA: función que hace uso interno de funciones propias de SQL.
+
+-- Función calcular_edad_mascota:
+
+DELIMITER //
+
+CREATE FUNCTION calcular_edad_mascota(id INT)
+RETURNS INT
+DETERMINISTIC
+BEGIN
+    DECLARE edad INT;
+    SELECT TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()) 
+    INTO edad
+    FROM mascotas
+    WHERE id_mascota = id;
+    RETURN edad;
+END //
+
+DELIMITER ;
+
+-- Si por ejemplo se quiere consultar la edad de la mascota con id = 1 
+-- a través del uso de la función se haría con la siguiente consulta
+
+SELECT calcular_edad_mascota(1);
+
+-- CONSIGNA: función que permite obtener valores de otras tablas, reemplazando a JOIN de una subconsulta.
+-- Con la función obtener_nombre_cliente se logra que en lugar de utilizar un 
+-- JOIN o una subconsulta cada vez que se quiera obtener el nombre del cliente al que pertenece la mascota
+--  se crea esta función que lo hace internamente. De esta manera,
+-- solo hace falta llamar a la función e introducir el id de la mascota cuyo nombre de dueño se quiere saber.
+
+
+DELIMITER //
+
+CREATE FUNCTION obtener_nombre_cliente(id_mascota INT)
+RETURNS VARCHAR(45)
+DETERMINISTIC
+BEGIN
+    DECLARE nombre_cliente VARCHAR(45);
+    SELECT nombre_cliente
+    INTO nombre_cliente
+    FROM clientes
+    WHERE id_cliente = (
+        SELECT id_cliente
+        FROM mascotas
+        WHERE id_mascota = id_mascota
+    );
+    RETURN nombre_cliente;
+END //
+
+DELIMITER ;
+
+-- Esta misma función con INNER JOIN se podría hacer de la siguiente manera:
+
+DELIMITER //
+
+CREATE FUNCTION obtener_nombre_cliente_2(id_mascota INT)
+RETURNS VARCHAR(45)
+DETERMINISTIC
+BEGIN
+    DECLARE nombre_cliente VARCHAR(45);
+    SELECT c.nombre_cliente
+    INTO nombre_cliente
+    FROM clientes c
+    INNER JOIN mascotas m ON c.id_cliente = m.id_cliente
+    WHERE m.id_mascota = id_mascota;
+    RETURN nombre_cliente;
+END //
+
+DELIMITER ;
+
+
+-- Si por ejemplo se quiere consultar el nombre del cliente dueño de la mascota con id = 1,
+-- a través del uso de la función se haría con la siguiente consulta:
+
+SELECT obtener_nombre_cliente(1);
+
+
+-- STORED PROCEDURE para ordenar una tabla: para este STORED PROCEDURE hice uso de CHAT GPT para guiarme. 
+-- el stored procedure queda de la siguiente manera:
+
+DELIMITER //
+
+CREATE PROCEDURE ordenar_tabla_mascotas (
+    IN columna_orden VARCHAR(50), -- Nombre de la columna para ordenar
+    IN orden VARCHAR(4)           -- Orden: ASC o DESC
+)
+BEGIN
+    -- Validar que el orden sea válido
+    IF orden NOT IN ('ASC', 'DESC') THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El parámetro orden debe ser ASC o DESC';
+    END IF;
+
+    -- Construir y ejecutar la consulta dinámica
+    SET @query = CONCAT('SELECT * FROM mascotas ORDER BY ', columna_orden, ' ', orden);
+    PREPARE consulta FROM @query;
+    EXECUTE consulta;
+    DEALLOCATE PREPARE consulta;
+END //
+
+DELIMITER ;
+
+-- Para utilizar el STORED PROCEDURE de ordenamiento se debe utilizar la siguiente consulta:
+
+CALL ordenar_tabla_mascotas('nombre_mascota', 'ASC');
+
+-- Además de los Stored procedures (SP) creados anteriormente se agrega el siguiente SP para eliminar un registro específico de una tabla:
+
+DELIMITER //
+
+CREATE PROCEDURE eliminar_mascota(id INT)
+BEGIN
+    DELETE FROM mascotas
+    WHERE id_mascota = id;
+END //
+
+DELIMITER ;
+
+-- Para utilizar el STORED PROCEDURE de eliminar un registro de la tabla se debe utilizar la siguiente consulta:
+CALL eliminar_mascota(3);
