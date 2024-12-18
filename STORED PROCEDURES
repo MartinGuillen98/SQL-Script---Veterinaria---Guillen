@@ -43,3 +43,52 @@ BEGIN
 END //
 DELIMITER ;
 
+ELIMINAR MASCOTA:
+
+DELIMITER //
+
+CREATE PROCEDURE eliminar_mascota(id INT)
+BEGIN
+    DELETE FROM mascotas
+    WHERE id_mascota = id;
+END //
+
+DELIMITER ;
+
+-- Para utilizar el STORED PROCEDURE de eliminar un registro de la tabla se debe utilizar la siguiente consulta:
+CALL eliminar_mascota(3);
+
+
+RANKING VENTAS POR CLIENTE:
+
+DELIMITER //
+
+CREATE PROCEDURE ranking_ventas_por_cliente (
+    IN orden VARCHAR(4) -- Parámetro que indica ASC o DESC
+)
+BEGIN
+    -- Validar que el parámetro 'orden' sea válido
+    IF orden NOT IN ('ASC', 'DESC') THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'El parámetro orden debe ser ASC o DESC';
+    END IF;
+
+    -- Construir y ejecutar la consulta dinámica
+    SET @query = CONCAT(
+        'SELECT c.id_cliente, c.nombre_cliente, SUM(vi.monto_total) AS total_ventas
+         FROM clientes c
+         JOIN ventas v ON c.id_cliente = v.id_cliente
+         JOIN ventas_items vi ON v.id_venta = vi.id_venta
+         GROUP BY c.id_cliente, c.nombre_cliente
+         ORDER BY total_ventas ', orden
+    );
+
+    PREPARE consulta FROM @query;
+    EXECUTE consulta;
+    DEALLOCATE PREPARE consulta;
+END //
+
+DELIMITER ;
+
+CALL ranking_ventas_por_cliente('ASC');
+
