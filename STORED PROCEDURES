@@ -1,6 +1,10 @@
 En este apartado se adjunta el código SQL utilizado para crear los Stored Procedures en la base de datos:
-
+-- -----------------------------------------------------------------------------------------------------
 ACTUALIZAR COSTO UNITARIO ITEM:
+-- -----------------------------------------------------------------------------------------------------
+USE veterinaria_2;
+
+DROP PROCEDURE IF EXISTS actualizar_costo_unitario_item;
 
 DELIMITER //
 CREATE PROCEDURE actualizar_costo_unitario_item(IN cu_id_item INT, IN cu_costounitario_nuevo DECIMAL(10,2))
@@ -11,7 +15,12 @@ BEGIN
 END //
 DELIMITER ;
 
+-- -------------------------------------------------------------------------------------------------------
 INSERTAR CLIENTE:
+-- -------------------------------------------------------------------------------------------------------
+USE veterinaria_2;
+
+DROP PROCEDURE IF EXISTS insertar_cliente;
 
 DELIMITER //
 CREATE PROCEDURE insertar_cliente(
@@ -25,7 +34,12 @@ BEGIN
 END //
 DELIMITER ;
 
+-- -------------------------------------------------------------------------------------------------------
 ACTUALIZAR CLIENTE:
+-- -------------------------------------------------------------------------------------------------------
+USE veterinaria_2;
+
+DROP PROCEDURE IF EXISTS actualizar_cliente;
 
 DELIMITER //
 CREATE PROCEDURE actualizar_cliente(
@@ -43,7 +57,12 @@ BEGIN
 END //
 DELIMITER ;
 
+-- -------------------------------------------------------------------------------------------------------
 ELIMINAR MASCOTA:
+-- -------------------------------------------------------------------------------------------------------
+USE veterinaria_2;
+
+DROP PROCEDURE IF EXISTS eliminar_mascota;
 
 DELIMITER //
 
@@ -58,8 +77,12 @@ DELIMITER ;
 -- Para utilizar el STORED PROCEDURE de eliminar un registro de la tabla se debe utilizar la siguiente consulta:
 CALL eliminar_mascota(3);
 
-
+-- -------------------------------------------------------------------------------------------------------
 RANKING VENTAS POR CLIENTE:
+-- -------------------------------------------------------------------------------------------------------
+USE veterinaria_2;
+
+DROP PROCEDURE IF EXISTS ranking_ventas_por_cliente;
 
 DELIMITER //
 
