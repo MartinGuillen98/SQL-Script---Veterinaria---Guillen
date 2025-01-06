@@ -1,8 +1,8 @@
 En este apartado se adjunta el código SQL utilizado para crear las vistas en la base de datos:
 
-
+-- -------------------------------------------------------------------------------------------------------
 VENTAS POR MES:
-
+-- -------------------------------------------------------------------------------------------------------
 USE veterinaria_2;
 
 DROP VIEW IF EXISTS ventas_por_mes;
@@ -16,8 +16,9 @@ JOIN ventas_items vi ON v.id_venta = vi.id_venta
 JOIN facturas f ON v.id_factura = f.id_factura
 GROUP BY DATE_FORMAT(f.fecha_factura, '%M');
 
+-- -------------------------------------------------------------------------------------------------------
 VENTAS POR CLIENTE:
-
+-- -------------------------------------------------------------------------------------------------------
 USE veterinaria_2;
 
 DROP VIEW IF EXISTS ventas_por_cliente;
@@ -31,8 +32,9 @@ JOIN ventas_items vi ON v.id_venta = vi.id_venta
 JOIN clientes c ON v.id_cliente = c.id_cliente
 GROUP BY c.nombre_cliente;
 
+-- -------------------------------------------------------------------------------------------------------
 VENTAS POR EMPLEADO:
-
+-- -------------------------------------------------------------------------------------------------------
 USE veterinaria_2;
 
 DROP VIEW IF EXISTS ventas_por_empleado;
