@@ -61,8 +61,8 @@ BEGIN
     DECLARE nombre_cliente VARCHAR(45);
     SELECT c.nombre_cliente
     INTO nombre_cliente
-    FROM clientes c
-    INNER JOIN mascotas m ON c.id_cliente = m.id_cliente
+    FROM clientes AS c
+    INNER JOIN mascotas AS m ON c.id_cliente = m.id_cliente
     WHERE m.id_mascota = id_mascota;
     RETURN nombre_cliente;
 END //
