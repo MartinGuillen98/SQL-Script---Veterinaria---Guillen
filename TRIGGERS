@@ -1,6 +1,11 @@
 En este apartado se adjunta el código SQL utilizado para crear los triggers en la base de datos:
 
+-- -------------------------------------------------------------------------------------------------------
 VALIDAR STOCK:
+-- -------------------------------------------------------------------------------------------------------
+USE veterinaria_2;
+
+DROP TRIGGER IF EXISTS validar_stock;
 
 DELIMITER //
 
@@ -23,8 +28,12 @@ END//
 
 DELIMITER ;
 
-
+-- -------------------------------------------------------------------------------------------------------
 ACTUALIZAR STOCK:
+-- -------------------------------------------------------------------------------------------------------
+USE veterinaria_2;
+
+DROP TRIGGER IF EXISTS actualizar_stock_despues_venta;
 
 DELIMITER //
 
