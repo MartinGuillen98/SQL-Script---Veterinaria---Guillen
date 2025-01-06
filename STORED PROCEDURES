@@ -99,9 +99,9 @@ BEGIN
     -- Construir y ejecutar la consulta dinámica
     SET @query = CONCAT(
         'SELECT c.id_cliente, c.nombre_cliente, SUM(vi.monto_total) AS total_ventas
-         FROM clientes c
-         JOIN ventas v ON c.id_cliente = v.id_cliente
-         JOIN ventas_items vi ON v.id_venta = vi.id_venta
+         FROM clientes AS c
+         JOIN ventas AS v ON c.id_cliente = v.id_cliente
+         JOIN ventas_items AS vi ON v.id_venta = vi.id_venta
          GROUP BY c.id_cliente, c.nombre_cliente
          ORDER BY total_ventas ', orden
     );
