@@ -1,22 +1,22 @@
 A CONTINUACIÓN SE ADJUNTAN EL CÓDIGO SQL UTILIZADO PARA INSERTAR DATOS EN LAS TABLAS:
 
--- DATOS INTRODUCIDOS TABLA VENTAS:
-INSERT INTO `ventas` VALUES (1,1,1,3),(2,2,1,3),(3,3,2,2),(4,4,3,1),(5,5,4,4);
-
--- DATOS INTRODUCIDOS TABLA FACTURAS:
-INSERT INTO `facturas` VALUES (1,'2024-08-08','Pagada','FAC-2024-0001','2024-09-08'),(2,'2024-08-15','Pagada','FAC-2024-0002','2024-09-15'),(3,'2024-09-01','Pagada','FAC-2024-0003','2024-10-01'),(4,'2024-09-23','Pagada','FAC-2024-0004','2024-10-23'),(5,'2024-11-12','Pagada','FAC-2024-0001','2024-12-12');
-
 -- DATOS INTRODUCIDOS TABLA EMPLEADOS:
 INSERT INTO `empleados` VALUES (1,'Rodrigo Perez','Medicina interna','2024-08-01'),(2,'Lucia_Ramirez','Cirugía','2024-08-02'),(3,'Federico_Bustamante','Anestesiología','2024-08-02'),(4,'Micaela_Garcia','Cuidados intensivos','2024-08-05'),(5,'Matias_Gonzalez','Ecografías','2024-08-06');
 
 -- DATOS INTRODUCIDOS TABLA CLIENTES:
 INSERT INTO `clientes` VALUES (1,'Gonzalo Castro','Marcos Sastre 752','2235495586'),(2,'Eugenia Palma','Benito Juarez 560','2236243561'),(3,'Romina Oviedo','Dorrego 355','2234120175'),(4,'German Liso','Berutti 560','2235567542'),(5,'Juana Di Marco','Falkner 5320','2235563987');
 
--- DATOS INTRODUCIDOS TABLA VENTAS_ITEMS:
-INSERT INTO `ventas_items` VALUES (1,1,1,1,2000.00,2000.00),(2,1,2,1,8000.00,8000.00),(3,2,3,1,4000.00,4000.00),(4,3,3,1,4000.00,4000.00),(5,4,3,3,4000.00,12000.00),(6,5,2,1,3000.00,3000.00);
-
 -- DATOS INTRODUCIDOS TABLA ITEMS:
 INSERT INTO `items` VALUES (1,'Antibiótico','Enrofloxacina','Baytril'),(2,'Antibiótico','Amoxicilina','Amoxivet'),(3,'Antiinflamatorios','Carprofeno','Carprodyl'),(4,'Antiparasitario','Ivermectina','Ivomec'),(5,'Antiparasitario','Fipronil','Frontline');
+
+-- DATOS INTRODUCIDOS TABLA PROVEEDORES
+INSERT INTO `proveedores` VALUES (1,'Grupo Bago'),(2,'Laboratorio Riga'),(3,'Laboratorio Zoetis');
+
+-- DATOS INTRODUCIDOS TABLA METODOS DE PAGO:
+INSERT INTO `metodos_de_pago` VALUES (1,'Efectivo'),(2,'Transferencia'),(3,'Débito'),(4,'Crédito');
+
+-- DATOS INTRODUCIDOS TABLA PROVEEDORES_ITEMS:
+INSERT INTO `proveedores_items` VALUES (1,1,1,2000.00,3.00,'2024-01-07'),(2,1,2,8000.00,1.00,'2024-03-10'),(3,2,3,4000.00,5.00,'2024-04-10');
 
 -- DATOS INTRODUCIDOS TABLA HISTORIAL MEDICO:
 INSERT INTO `historial_medico` VALUES (1,'Cistitis','Antibióticos','2024-09-08'),(2,'Estrongiloidosis','Antibióticos','2024-08-08'),(3,'Displasia de Cadera','Cirugía','2024-07-25');
@@ -27,17 +27,25 @@ INSERT INTO `mascotas` VALUES (1,'Tyson','Gato','2022-11-10',5.00,1),(2,'Felipe'
 -- DATOS INTRODUCIDOS TABLA CLIENTES MASCOTAS:
 INSERT INTO `clientes_mascotas` VALUES (1,1,1),(2,2,1),(3,3,2),(4,4,3);
 
--- DATOS INTRODUCIDOS TABLA CITAS:
-INSERT INTO `citas` VALUES (1,1,'2024-09-08 14:30:00',1),(2,2,'2024-08-08 14:00:00',2),(3,3,'2024-08-25 10:00:00',3);
+-- DATOS INTRODUCIDOS TABLA FACTURAS:
+INSERT INTO `facturas` VALUES (1,'2024-08-08','Pagada','FAC-2024-0001','2024-09-08'),(2,'2024-08-15','Pagada','FAC-2024-0002','2024-09-15'),(3,'2024-09-01','Pagada','FAC-2024-0003','2024-10-01'),(4,'2024-09-23','Pagada','FAC-2024-0004','2024-10-23'),(5,'2024-11-12','Pagada','FAC-2024-0001','2024-12-12');
 
--- DATOS INTRODUCIDOS TABLA PROVEEDORES
-INSERT INTO `proveedores` VALUES (1,'Grupo Bago'),(2,'Laboratorio Riga'),(3,'Laboratorio Zoetis');
+-- DATOS INTRODUCIDOS TABLA VENTAS:
+INSERT INTO `ventas` VALUES (1,1,1,3),(2,2,1,3),(3,3,2,2),(4,4,3,1),(5,5,4,4);
 
--- DATOS INTRODUCIDOS TABLA PROVEEDORES_ITEMS:
-INSERT INTO `proveedores_items` VALUES (1,1,1,2000.00,3.00,'2024-01-07'),(2,1,2,8000.00,1.00,'2024-03-10'),(3,2,3,4000.00,5.00,'2024-04-10');
-
--- DATOS INTRODUCIDOS TABLA METODOS DE PAGO:
-INSERT INTO `metodos_de_pago` VALUES (1,'Efectivo'),(2,'Transferencia'),(3,'Débito'),(4,'Crédito');
+-- DATOS INTRODUCIDOS TABLA VENTAS_ITEMS:
+INSERT INTO `ventas_items` VALUES (1,1,1,1,2000.00,2000.00),(2,1,2,1,8000.00,8000.00),(3,2,3,1,4000.00,4000.00),(4,3,3,1,4000.00,4000.00),(5,4,3,3,4000.00,12000.00),(6,5,2,1,3000.00,3000.00);
 
 -- DATOS INTRODUCIDOS TABLA VENTAS_METODOSDEPAGO:
 INSERT INTO `ventas_metodosdepago` VALUES (1,1,2),(2,2,1),(3,3,4);
+
+-- DATOS INTRODUCIDOS TABLA CITAS:
+INSERT INTO `citas` VALUES (1,1,'2024-09-08 14:30:00',1),(2,2,'2024-08-08 14:00:00',2),(3,3,'2024-08-25 10:00:00',3);
+
+
+
+
+
+
+
+
