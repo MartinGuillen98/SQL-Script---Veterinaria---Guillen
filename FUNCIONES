@@ -1,8 +1,14 @@
 En este apartado se adjunta el código SQL utilizado para crear las funciones en la base de datos:
 
+-- ----------------------------------------------------------------------------------------------
 FUNCIÓN CALCULAR EDAD MASCOTA:
+-- ----------------------------------------------------------------------------------------------
 
 CONSIGNA: función que haga uso interno de funciones propias de SQL. Con la función calcular_edad_mascota se hace uso de funciones propias de SQL como requiere la consigna.
+
+USE veterinaria_2;
+
+DROP FUNCTION IF EXISTS calcular_edad_mascota;
 
 DELIMITER //
 
@@ -24,11 +30,17 @@ Si por ejemplo se quiere consultar la edad de la mascota con id = 1  a través d
 
 SELECT calcular_edad_mascota(1);
 
+-- ----------------------------------------------------------------------------------------------
 FUNCIÓN OBTENER NOMBRE CLIENTE:
+-- ----------------------------------------------------------------------------------------------
 
 CONSIGNA: función que permite obtener valores de otras tablas, reemplazando a JOIN de una subconsulta. Con la función obtener_nombre_cliente se logra que en lugar de 
 utilizar un JOIN o una subconsulta cada vez que se quiera obtener el nombre del cliente al que pertenece la mascota se crea esta función que lo hace internamente. 
 De esta manera, solo hace falta llamar a la función e introducir el id de la mascota cuyo nombre de dueño se quiere saber.
+
+USE veterinaria_2;
+
+DROP FUNCTION IF EXISTS obtener_nombre_cliente;
 
 DELIMITER //
 
