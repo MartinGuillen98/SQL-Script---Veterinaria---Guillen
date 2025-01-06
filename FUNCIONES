@@ -53,8 +53,8 @@ BEGIN
     -- Concatenamos todos los nombres de los clientes asociados a la mascota
     SELECT GROUP_CONCAT(c.nombre_cliente SEPARATOR ', ')
     INTO nombres_clientes
-    FROM clientes c
-    JOIN clientes_mascotas cm ON c.id_cliente = cm.id_cliente
+    FROM clientes AS c
+    JOIN clientes_mascotas AS cm ON c.id_cliente = cm.id_cliente
     WHERE cm.id_mascota = id_mascota_param;
 
     RETURN nombres_clientes;
