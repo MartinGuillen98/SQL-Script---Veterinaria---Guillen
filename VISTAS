@@ -46,3 +46,46 @@ SELECT e.nombre_empleado AS empleado, SUM(vi.precio_unitario * vi.cantidad) AS m
  JOIN ventas_items AS vi ON v.id_venta = vi.id_venta
  GROUP BY e.nombre_empleado;
 
+ -- --------------------------------------------------------
+-- VISTA CITAS POR EMPLEADO
+-- ---------------------------------------------------------
+USE veterinaria_2;
+
+DROP VIEW IF EXISTS resumen_citas_empleados;
+
+CREATE VIEW resumen_citas_empleados AS
+SELECT 
+    e.id_empleado,
+    e.nombre_empleado,
+    COUNT(c.id_cita) AS total_citas,
+    GROUP_CONCAT(DISTINCT m.nombre_mascota SEPARATOR ', ') AS mascotas_atendidas
+FROM empleados AS e
+LEFT JOIN citas AS c ON e.id_empleado = c.id_empleado
+LEFT JOIN mascotas AS m ON c.id_mascota = m.id_mascota
+GROUP BY e.id_empleado, e.nombre_empleado
+ORDER BY total_citas DESC;
+
+SELECT * FROM resumen_citas_empleados;
+
+ -- --------------------------------------------------------
+-- VISTA PRODUCTOS MAS VENDIDOS
+-- ---------------------------------------------------------
+USE veterinaria_2;
+
+DROP VIEW IF EXISTS productos_mas_vendidos;
+
+CREATE VIEW productos_mas_vendidos AS
+SELECT 
+    i.id_item,
+    i.tipo_item,
+    i.droga_item,
+    i.marca_item,
+    SUM(vi.cantidad) AS cantidad_total_vendida,
+    SUM(vi.monto_total) AS ingresos_totales
+FROM items i
+JOIN ventas_items AS vi ON i.id_item = vi.id_item
+GROUP BY i.id_item, i.tipo_item, i.droga_item, i.marca_item
+ORDER BY cantidad_total_vendida DESC;
+
+SELECT * FROM productos_mas_vendidos;
+
