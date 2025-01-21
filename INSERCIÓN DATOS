@@ -1,7 +1,7 @@
 A CONTINUACIÓN SE ADJUNTAN EL CÓDIGO SQL UTILIZADO PARA INSERTAR DATOS EN LAS TABLAS:
 
 -- DATOS INTRODUCIDOS TABLA EMPLEADOS:
-INSERT INTO `empleados` VALUES (1,'Rodrigo Perez','Medicina interna','2024-08-01'),(2,'Lucia_Ramirez','Cirugía','2024-08-02'),(3,'Federico_Bustamante','Anestesiología','2024-08-02'),(4,'Micaela_Garcia','Cuidados intensivos','2024-08-05'),(5,'Matias_Gonzalez','Ecografías','2024-08-06');
+INSERT INTO `empleados` VALUES (1,'Rodrigo Perez','Medicina interna','2024-08-01'),(2,'Lucia Ramirez','Cirugía','2024-08-02'),(3,'Federico Bustamante','Anestesiología','2024-08-02'),(4,'Micaela Garcia','Cuidados intensivos','2024-08-05'),(5,'Matias Gonzalez','Ecografías','2024-08-06');
 
 -- DATOS INTRODUCIDOS TABLA CLIENTES:
 INSERT INTO `clientes` VALUES (1,'Gonzalo Castro','Marcos Sastre 752','2235495586'),(2,'Eugenia Palma','Benito Juarez 560','2236243561'),(3,'Romina Oviedo','Dorrego 355','2234120175'),(4,'German Liso','Berutti 560','2235567542'),(5,'Juana Di Marco','Falkner 5320','2235563987');
